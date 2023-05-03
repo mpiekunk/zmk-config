@@ -8,7 +8,7 @@
 #define NAV 2
 #define SYS 3
 
-#define MEH(keycode) &kp LC(LS(LA(keycode)))   // MEH key = Ctrl+Shift+Alt
+#define MEH(key) LC(LS(LA(key)))
 #define SPC_MEH &mt LC(LS(LALT)) SPC
 #define HYP LS(LC(LA(LGUI)))
 #define HYPER(key) LS(LC(LA(LG(key))))
@@ -79,7 +79,7 @@
 
     navigation_layer {
       bindings = <
-&trans &none &none &none &none &kp C_PREV MEH(6) MEH(7) MEH(8) MEH(9) MEH(0) MEH(-)
+&trans &none &none &none &none &kp C_PREV &kp MEH(6) &kp MEH(7) &kp MEH(8) &kp MEH(9) &kp MEH(0) &kp MEH(-)
 &kp DEL &none &none &none &none &kp C_NEXT &kp PG_UP &kp LA(LEFT) &kp UP &kp LA(RIGHT) &kp HOME &none
 &trans &none &none &none &none &kp C_PP &kp PG_DN &kp LEFT &kp DOWN &kp RIGHT &kp END &none
 &trans &none &none &none &kp LS(LG(4)) &kp K_MUTE &kp C_VOL_DN &kp C_VOL_UP &kp LS(LG(A)) &none &none &none &none &none
