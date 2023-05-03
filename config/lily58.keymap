@@ -9,62 +9,106 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/ext_power.h>
 
+#define LWR 0
+#define SYMB 1
+#define NAVI 2
+
+&mt {
+    flavor = "tap-preferred";
+    tapping_term_ms = <200>;
+};
+
+&mmv {
+   time-to-max-speed-ms = <680>;
+   acceleration-exponent=<2>;
+};
+
 / {
+
+	behaviors {
+  	hm: homerow_mods {
+      compatible = "zmk,behavior-hold-tap";
+      label = "HOMEROW_MODS";
+      #binding-cells = <2>;
+      tapping-term-ms = <200>;
+      quick_tap_ms = <0>;
+      flavor = "tap-preferred";
+      bindings = <&kp>, <&kp>;
+    };
+		td: tapdance {
+      compatible = "zmk,behavior-hold-tap";
+      label = "TAPDANCE";
+      #binding-cells = <2>;
+      tapping-term-ms = <150>;
+      quick_tap_ms = <0>;
+      flavor = "tap-preferred";
+      bindings = <&kp>, <&kp>;
+    };
+		td_cap_w: tap_shift_cap_word {
+			comaptible = "zmk,behavior-tap-dance";
+			label = "TAP_SHIFT_CAP_WORD";
+			#binding-cells = <0>;
+			tapping-term-ms = <200>;
+			bindings = <&kp>, <&caps_word>;
+		}
+		bspc_del: backspace_delete {
+			compatible = "zmk,behavior-mod-morph";
+			label = "BACKSPACE_DELETE";
+			#binding-cells = <0>;
+			bindings = <&kp BSPC>, <&kp DEL>;
+			mods = <(MOD_LSHIFT | MOD_RSHIFT)>; // Shift
+		};
+  };
+
 	keymap {
 		compatible = "zmk,keymap";
 
 		default_layer {
 // ------------------------------------------------------------------------------------------------------------
-// |  ESC  |  1  |  2  |  3   |  4   |  5   |                   |  6   |  7    |  8    |  9   |   0   |   -   |
-// |  TAB  |  Q  |  W  |  E   |  R   |  T   |                   |  Y   |  U    |  I    |  O   |   P   |   \   |
-// |  CTRL |  A  |  S  |  D   |  F   |  G   |                   |  H   |  J    |  K    |  L   |   ;   |   '   |
-// | SHIFT |  Z  |  X  |  C   |  V   |  B   |   "["  |  |  "]"  |  N   |  M    |  ,    |  .   |   /   | SHIFT |
-//                     | ALT  | GUI  | LOWER|  SPACE |  | ENTER | RAISE| BSPC  | GUI   |
+// |  ESC  |  1  |  2  |  3   |  4   |  5   |                   |  6   |  7    |  8   |  9   |   0   |   -   |
+// |  BSPC |  Q  |  W  |  E   |  R   |  T   |                   |  Y   |  U    |  I   |  O   |   P   |   \   |
+// |  TAB  |  A  |  S  |  D   |  F   |  G   |                   |  H   |  J    |  K   |  L   |   ;   |   '   |
+// | SHIFT |  Z  |  X  |  C   |  V   |  B   |   "["  |  |  "]"  |  N   |  M    |  ,   |  .   |   /   | SHIFT |
+//                     | ALT  | CMD  | LWR  |  ENTER |  | SPACE | SYMB | CTRL  |  R3  |
 			bindings = <
-&kp ESC   &kp N1 &kp N2 &kp N3   &kp N4   &kp N5                     &kp N6 &kp N7   &kp N8    &kp N9  &kp N0   &kp MINUS
-&kp TAB   &kp Q  &kp W  &kp E    &kp R    &kp T                      &kp Y  &kp U    &kp I     &kp O   &kp P    &kp BSLH
-&kp LCTRL &kp A  &kp S  &kp D    &kp F    &kp G                      &kp H  &kp J    &kp K     &kp L   &kp SEMI &kp SQT
-&kp LSHFT &kp Z  &kp X  &kp C    &kp V    &kp B  &kp LBKT   &kp RBKT &kp N  &kp M    &kp COMMA &kp DOT &kp FSLH &kp RSHFT
-                        &kp LALT &kp LGUI &mo 1  &kp SPACE  &kp RET  &mo 2  &kp BSPC &kp RGUI
+&gresc		&kp N1 &kp N2				&kp N3   		&kp N4   		&kp N5                         						&kp N6   &kp N7    	&kp N8    			&kp N9  			&kp N0   &kp MINUS
+&bspc_del &kp Q  &kp W				&kp E    		&kp R    		&kp T                          						&kp Y    &kp U     	&kp I     			&kp O   			&kp P    &kp BSLH
+&kp TAB   &kp A  &hm LCTRL S	&hm LALT D  &hm LGUI F	&kp G                          						&kp H    &hm RGUI J  &hm RALT K			&hm RCTRL L		&kp SEMI &kp SQT
+&kp LSHFT &kp Z  &kp X				&kp C    		&kp V    		&kp B    &kp LBKT   &kp RBKT   						&kp N    &kp M     	&td MINUS COMMA	&td UNDER DOT	&kp FSLH &td_cap_w RSHFT
+                      				&kp LALT 		&kp LGUI 		&to LWR  &kp RET    &mt LC(LS(LALT)) SPC	&to SYMB &sk LCTRL 	&to NAVI
 			>;
-
-			sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
 		};
 
-		lower_layer {
+		symbol_layer {
 // ------------------------------------------------------------------------------------------------------------
-// | BTCLR | BT1 | BT2 |  BT3 |  BT4 |  BT5 |                   |      |       |       |      |       |       |
-// |  F1   |  F2 |  F3 |  F4  |  F5  |  F6  |                   |  F7  |  F8   |  F9   |  F10 |  F11  |  F12  |
-// |   `   |  !  |  @  |  #   |  $   |  %   |                   |  ^   |  &    |  *    |  (   |   )   |   ~   |
-// |       |     |     |      |      |      |        |  |       |      |  _    |  +    |  {   |   }   |  "|"  |
-//                     |      |      |      |        |  |       |      |       |       |
+// |       |  F1 |  F2 |  F3  |  F4 |  F5 |                   |  F6  |  F7 |  F8  |  F9 | F10  |  F11  |
+// |       |  !  |  @  |  #   |  $  |  %  |                   |  ^   |  &  |  *   |  (  |  )   |  F12  |
+// |       |  1  |  2  |  3   |  4  |  5  |                   |  6   |  7  |  8   |  9  |  0   |  "|"  |
+// |       |  `  |  +  |  =   |  {  |  }  |        |  |       |  [   |  ]  |  -   |  _  |  ?   |       |
+//                     |      |     |     |        |  |       |      |     |      |
 			bindings = <
-&bt BT_CLR &bt BT_SEL 0     &bt BT_SEL 1      &bt BT_SEL 2      &bt BT_SEL 3 &bt BT_SEL 4                 &trans    &trans    &trans          &trans    &trans    &trans
-&kp F1     &kp F2           &kp F3            &kp F4            &kp F5       &kp F6                       &kp F7    &kp F8    &kp F9          &kp F10   &kp F11   &kp F12
-&kp GRAVE  &kp EXCL         &kp AT            &kp HASH          &kp DOLLAR   &kp PRCNT                    &kp CARET &kp AMPS  &kp KP_MULTIPLY &kp LPAR  &kp RPAR  &kp TILDE
-&trans     &ext_power EP_ON &ext_power EP_OFF &ext_power EP_TOG &trans       &trans    &trans   &trans    &trans    &kp MINUS &kp KP_PLUS     &kp LBRC  &kp RBRC  &kp PIPE
-                                              &trans            &trans       &trans    &trans   &trans    &trans    &trans    &trans
+&trans  &kp F1			&kp F2 		&kp F3			&kp F4  		&kp F5                    &kp F6			&kp F7    &kp F8    &kp F9		&kp F10			&kp F11
+&trans  &kp EXCL		&kp AT 		&kp HASH		&kp DOLLAR	&kp PRCNT                 &kp CARET		&kp AMPS  &kp ASTRK	&kp LPAR	&kp RPAR		&kp F12
+&trans  &kp N1 			&kp N2 		&kp N3			&kp N4  		&kp N5                    &kp N6			&kp N7    &kp N8    &kp N9		&kp N0			&kp PIPE
+&trans  &kp TILDE 	&kp PLUS 	&kp EQUAL		&kp LBRC 		&kp RBRC  &trans   &trans	&kp LBKT   	&kp RBKT  &kp MINUS	&kp UNDER	&kp QMARK 	&trans
+                      			&trans  		&trans  		&to LWR   	&trans   &trans	&to NAVI    &trans    &none
 			>;
-
-			sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
 		};
 
-		raise_layer {
+		navigation_layer {
 // ------------------------------------------------------------------------------------------------------------
-// |       |     |     |      |      |      |                   |      |       |       |      |       |       |
-// |   `   |  1  |  2  |  3   |  4   |  5   |                   |  6   |   7   |   8   |  9   |   0   |       |
-// |   F1  |  F2 |  F3 |  F4  |  F5  |  F6  |                   |      |   <-  |   v   |  ^   |  ->   |       |
-// |   F7  |  F8 |  F9 |  F10 |  F11 |  F12 |        |  |       |  +   |   -   |   =   |  [   |   ]   |   \   |
-//                     |      |      |      |        |  |       |      |       |       |
+// | BTCLR | BT1  |  BT2  |  BT3  |  BT4  |  <<  |                  | MEH+6 | MEH+7 | MEH+8 | MEH+9 | MEH+0 | MEH+- |
+// |       | MW ↑ | L CLK |  M ↑  | R CLK |  >>  |                  | PG ↑  | ⌥+←   |   ↑   |  ⌥+→  |  HOME |       |
+// |       | MW ↓ |  M ←  |  M ↓  |  M →  | PLAY |                  | PG ↓  |   ←   |   ↓   |   →   |  END  |       |
+// |       | MW ← |  MW → |       | ⌃+⌘+4 | MUTE | VOL + |  | VOL - | ⇧+⌘+A |       |       |       |       |       |
+//                        |       |       |      |       |  |       |       |       |       |
 			bindings = <
-&trans    &trans &trans &trans  &trans  &trans                       &trans      &trans    &trans    &trans   &trans    &trans
-&kp GRAVE &kp N1 &kp N2 &kp N3  &kp N4  &kp N5                       &kp N6      &kp N7    &kp N8    &kp N9   &kp N0    &trans
-&kp F1    &kp F2 &kp F3 &kp F4  &kp F5  &kp F6                       &trans      &kp LEFT  &kp DOWN  &kp UP   &kp RIGHT &trans
-&kp F7    &kp F8 &kp F9 &kp F10 &kp F11 &kp F12   &trans   &trans    &kp KP_PLUS &kp MINUS &kp EQUAL &kp LBKT &kp RBKT  &kp BSLH
-                        &trans  &trans  &trans    &trans   &trans    &trans      &trans    &trans
+&bt BT_CLR	&bt BT_SEL 0			&bt BT_SEL 1			&bt BT_SEL 2		&bt BT_SEL 3		&kp C_PREV                 							&kp LC(LS(LALT(6)))	&kp LC(LS(LALT(7)))	&kp LC(LS(LALT(8)))	&kp LC(LS(LALT(9)))	&kp LC(LS(LALT(0)))	&kp LC(LS(LALT(-)))
+&kp DEL			&none							&none			     		&none				  	&none						&kp C_NEXT                    					&kp PG_UP 					&kp LA(LEFT)				&kp UP							&kp LA(RIGHT)				&kp HOME  					&none
+&trans   		&none							&none							&none						&none						&kp C_PP                    						&kp PG_DN 					&kp LEFT						&kp DOWN						&kp RIGHT 					&kp END	  					&none
+&trans   		&none							&none							&none         	&kp LS(LG(4))		&kp K_MUTE	&kp C_VOL_DN	&kp C_VOL_UP  &kp LS(LG(A))				&none								&none								&none		  					&none								&none
+                                        				&trans	      	&trans					&to LWR   	&trans				&trans				&to SYMB  					&trans	   					&none
 			>;
-
-			sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
 		};
 	};
 };
