@@ -72,11 +72,11 @@
 // | SHIFT |  Z  |  X  |  C   |  V   |  B   |   [   |  |   ]   |  N   |  M   |  ,   |  .   |   /   | SHIFT |
 //                     | ALT  | CMD  | LWR  | ENTER |  | SPACE | SYM  | CTRL |  NAV |
       bindings = <
-&gresc			&kp N1 &kp N2				&kp N3   		&kp N4   		&kp N5                        &kp N6  &kp N7    	&kp N8    			&kp N9  			&kp N0   &kp MINUS
-&bspc_del 	&kp Q  &kp W				&kp E    		&kp R    		&kp T                         &kp Y   &kp U     	&kp I     			&kp O   			&kp P    &kp BSLH
-&kp TAB   	&kp A  &hm LCTRL S	&hm LALT D  &hm LGUI F	&kp G                         &kp H   &hm RGUI J  &hm RALT K			&hm RCTRL L		&kp SEMI &kp SQT
-&td1 LSHFT	&kp Z  &kp X				&kp C    		&kp V    		&kp B    &kp LBKT   &kp RBKT  &kp N   &kp M     	&td MINUS COMMA	&td UNDER DOT	&kp FSLH &td1 RSHFT
-                                &sk LALT 		&sk LGUI 		&to LWR  &kp RET    SPC_MEH		&to SYM	&sk LCTRL 	&to NAV
+&gresc      &kp N1 &kp N2       &kp N3      &kp N4      &kp N5                       &kp N6  &kp N7      &kp N8          &kp N9        &kp N0   &kp MINUS
+&bspc_del   &kp Q  &kp W        &kp E       &kp R       &kp T                        &kp Y   &kp U       &kp I           &kp O         &kp P    &kp BSLH
+&kp TAB     &kp A  &hm LCTRL S  &hm LALT D  &hm LGUI F  &kp G                        &kp H   &hm RGUI J  &hm RALT K      &hm RCTRL L   &kp SEMI &kp SQT
+&td1 LSHFT  &kp Z  &kp X        &kp C       &kp V       &kp B    &kp LBKT   &kp RBKT &kp N   &kp M       &td MINUS COMMA &td UNDER DOT &kp FSLH &td1 RSHFT
+                                &sk LALT    &sk LGUI    &to LWR  &kp RET    SPC_MEH  &to SYM &sk LCTRL   &to NAV
       >;
     };
 
@@ -88,11 +88,11 @@
 // |       |  `  |  +  |  =   |  {  |  }  |       |  |       |  [   |  ]  |  -   |  _  |  ?   |       |
 //                     |      |     | LWR |       |  |       |  NAV |     |      |
       bindings = <
-&trans  &kp F1			&kp F2 		&kp F3			&kp F4  		&kp F5                    	&kp F6			&kp F7    &kp F8    &kp F9		&kp F10			&kp F11
-&trans  &kp EXCL		&kp AT 		&kp HASH		&kp DOLLAR	&kp PRCNT                 	&kp CARET		&kp AMPS  &kp ASTRK	&kp LPAR	&kp RPAR		&kp F12
-&trans  &kp N1 			&kp N2 		&kp N3			&kp N4  		&kp N5                    	&kp N6			&kp N7    &kp N8    &kp N9		&kp N0			&kp PIPE
-&trans  &kp TILDE 	&kp PLUS 	&kp EQUAL		&kp LBRC 		&kp RBRC  &trans   &trans		&kp LBKT   	&kp RBKT  &kp MINUS	&kp UNDER	&kp QMARK 	&trans
-                              &trans  		&trans  		&to LWR   &trans   &trans		&to NAV			&trans    &none
+&trans  &kp F1      &kp F2    &kp F3      &kp F4      &kp F5                      &kp F6      &kp F7    &kp F8    &kp F9    &kp F10     &kp F11
+&trans  &kp EXCL    &kp AT    &kp HASH    &kp DOLLAR  &kp PRCNT                   &kp CARET   &kp AMPS  &kp ASTRK &kp LPAR  &kp RPAR    &kp F12
+&trans  &kp N1      &kp N2    &kp N3      &kp N4      &kp N5                      &kp N6      &kp N7    &kp N8    &kp N9    &kp N0      &kp PIPE
+&trans  &kp TILDE   &kp PLUS  &kp EQUAL   &kp LBRC    &kp RBRC  &trans   &trans   &kp LBKT    &kp RBKT  &kp MINUS &kp UNDER &kp QMARK   &trans
+                              &trans      &trans      &to LWR   &trans   &trans    &to NAV    &trans    &none
       >;
     };
 
@@ -104,11 +104,11 @@
 // |       | MW ← |  MW → |       | ⌃+⌘+4 | MUTE | VOL + |  | VOL - | ⇧+⌘+A |       |       |       |       |       |
 //                        |       |       |      |       |  |       |       |       |       |
       bindings = <
-&trans   		&none							&none							&none						&none						&kp C_PREV                 							MEH(6)				MEH(7)				MEH(8)		MEH(9)				MEH(0)		MEH(-)
-&kp DEL			&none							&none			     		&none				  	&none						&kp C_NEXT                    					&kp PG_UP 		&kp LA(LEFT)	&kp UP		&kp LA(RIGHT)	&kp HOME	&none
-&trans   		&none							&none							&none						&none						&kp C_PP                    						&kp PG_DN 		&kp LEFT			&kp DOWN	&kp RIGHT 		&kp END	  &none
-&trans   		&none							&none							&none         	&kp LS(LG(4))		&kp K_MUTE	&kp C_VOL_DN	&kp C_VOL_UP  &kp LS(LG(A))	&none					&none			&none		  		&none			&none
-                                                &trans	      	&trans					&to LWR   	&trans				&trans				&to SYM				&trans	   		&to SYS
+&trans      &none             &none             &none           &none           &kp C_PREV                              MEH(6)        MEH(7)        MEH(8)    MEH(9)        MEH(0)    MEH(-)
+&kp DEL     &none             &none             &none           &none           &kp C_NEXT                              &kp PG_UP     &kp LA(LEFT)  &kp UP    &kp LA(RIGHT) &kp HOME  &none
+&trans      &none             &none             &none           &none           &kp C_PP                                &kp PG_DN     &kp LEFT      &kp DOWN  &kp RIGHT     &kp END   &none
+&trans      &none             &none             &none           &kp LS(LG(4))   &kp K_MUTE  &kp C_VOL_DN  &kp C_VOL_UP  &kp LS(LG(A)) &none         &none     &none         &none      &none
+                                                &trans          &trans          &to LWR     &trans        &trans        &to SYM       &trans        &to SYS
       >;
     };
 
@@ -120,11 +120,11 @@
 // |       |      |       |       |       |       | RESET |  | RESET |      |       |       |       |       |       |
 //                        |       |       |       |       |  |       |      |       |       |
       bindings = <
-&bt BT_CLR	&bt BT_SEL 0	&bt BT_SEL 1	&bt BT_SEL 2	&bt BT_SEL 3	&bt BT_SEL 4                 						&none				&none					&none			    &none				  &none					&none
-&none				&none					&none			    &none				  &none					&none                   								&none				&none					&none			    &none				  &none					&none
-&none   		&none					&none					&none					&none					&none                   								&none				&none					&none			    &none				  &none					&none
-&none   		&none					&none					&none         &none					&none					&sys_reset	&sys_reset		&none				&none					&none			    &none				  &none					&none
-                                        &none		      &none					&to LWR				&none				&none					&to NAV 		&none					&none
+&bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                            &none       &none         &none         &none         &none         &none
+&none       &none         &none         &none         &none         &none                                   &none       &none         &none         &none         &none         &none
+&none       &none         &none         &none         &none         &none                                   &none       &none         &none         &none         &none         &none
+&none       &none         &none         &none         &none         &none         &sys_reset  &sys_reset    &none       &none         &none         &none         &none         &none
+                                        &none         &none         &to LWR       &none       &none         &to NAV     &none         &none
       >;
     };
   };
