@@ -16,7 +16,7 @@
 #define SYS 3
 
 // misc aliases
-#define MEH(keycode) &kp LC(LS(LALT(keycode)))
+#define MEH(keycode) &kp LC(LS(LA(keycode)))   // MEH key = Ctrl+Shift+Alt
 #define SPC_MEH &mt LC(LS(LALT)) SPC
 
 &mt {
