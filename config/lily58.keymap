@@ -45,7 +45,7 @@
 			#binding-cells = <0>;
 			tapping-term-ms = <200>;
 			bindings = <&kp>, <&caps_word>;
-		}
+		};
 		bspc_del: backspace_delete {
 			compatible = "zmk,behavior-mod-morph";
 			label = "BACKSPACE_DELETE";
