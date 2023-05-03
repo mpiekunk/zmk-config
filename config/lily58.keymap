@@ -51,7 +51,7 @@
 			label = "BACKSPACE_DELETE";
 			#binding-cells = <0>;
 			bindings = <&kp BSPC>, <&kp DEL>;
-			mods = <(MOD_LSHIFT | MOD_RSHIFT)>; // Shift
+			mods = <(MOD_LSHIFT|MOD_RSHIFT)>;
 		};
   };
 
