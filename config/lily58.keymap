@@ -9,15 +9,9 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/ext_power.h>
 
-// layer definitions
-#define LWR 0
-#define SYM 1
-#define NAV 2
-#define SYS 3
-
 // misc aliases
-#define MH(key) LC(LS(LA(key)))          // MH(key) = Ctrl+Shift+Alt+<key>
-#define MEH LC(LS(LALT))                 // MEH = Ctrl+Shift+Alt
+#define MEH(key) LC(LS(LA(key)))          // MEH(key) = Ctrl+Shift+Alt+<key>
+#define MEHK LC(LS(LALT))                 // MEHK = Ctrl+Shift+Alt
 #define HYP LS(LC(LA(LGUI)))             // HYP = Ctrl+Shift+GUI
 #define HYPER(key) LS(LC(LA(LG(key))))   // HYPER(key) = Ctrl+Shift+Alt+GUI+<key>
 #define LSG(key) LS(LG(key))             // LSG(key) = Shift+GUI+<key>
@@ -85,11 +79,11 @@
 // | SHIFT |  Z  |  X  |  C   |  V   |  B   |   [   |  |   ]   |  N   |  M   |  ,   |  .   |   /   | SHIFT |
 //                     | ALT  | CMD  | LWR  | ENTER |  | SPACE | SYM  | CTRL |  NAV |
       bindings = <
-&gresc      &kp N1 &kp N2       &kp N3      &kp N4      &kp N5                          &kp N6  &kp N7      &kp N8          &kp N9        &kp N0   &kp MINUS
-&bspc_del   &kp Q  &kp W        &kp E       &kp R       &kp T                           &kp Y   &kp U       &kp I           &kp O         &kp P    &kp BSLH
-&kp TAB     &kp A  &hm LCTRL S  &hm LALT D  &hm LGUI F  &kp G                           &kp H   &hm RGUI J  &hm RALT K      &hm RCTRL L   &kp SEMI &kp SQT
-&td1 LSHFT  &kp Z  &kp X        &kp C       &kp V       &kp B    &kp LBKT   &kp RBKT    &kp N   &kp M       &td MINUS COMMA &td UNDER DOT &kp FSLH &td1 RSHFT
-                                &sk LALT    &sk LGUI    &to LWR  &kp RET    &mt MEH SPC &to SYM &sk LCTRL   &to NAV
+&gresc      &kp N1 &kp N2       &kp N3      &kp N4      &kp N5                           &kp N6  &kp N7      &kp N8          &kp N9        &kp N0   &kp MINUS
+&bspc_del   &kp Q  &kp W        &kp E       &kp R       &kp T                            &kp Y   &kp U       &kp I           &kp O         &kp P    &kp BSLH
+&kp TAB     &kp A  &hm LCTRL S  &hm LALT D  &hm LGUI F  &kp G                            &kp H   &hm RGUI J  &hm RALT K      &hm RCTRL L   &kp SEMI &kp SQT
+&td1 LSHFT  &kp Z  &kp X        &kp C       &kp V       &kp B    &kp LBKT   &kp RBKT     &kp N   &kp M       &td MINUS COMMA &td UNDER DOT &kp FSLH &td1 RSHFT
+                                &sk LALT    &sk LGUI    &to 0    &kp RET    &mt MEHK SPC &to 1   &sk LCTRL   &to NAV
       >;
     };
 
@@ -105,7 +99,7 @@
 &trans  &kp EXCL    &kp AT    &kp HASH    &kp DOLLAR  &kp PRCNT                   &kp CARET   &kp AMPS  &kp ASTRK &kp LPAR  &kp RPAR    &kp F12
 &trans  &kp N1      &kp N2    &kp N3      &kp N4      &kp N5                      &kp N6      &kp N7    &kp N8    &kp N9    &kp N0      &kp PIPE
 &trans  &kp TILDE   &kp PLUS  &kp EQUAL   &kp LBRC    &kp RBRC  &trans   &trans   &kp LBKT    &kp RBKT  &kp MINUS &kp UNDER &kp QMARK   &trans
-                              &trans      &trans      &to LWR   &trans   &trans   &to NAV     &trans    &none
+                              &trans      &trans      &to 0     &trans   &trans   &to 2       &trans    &none
       >;
     };
 
@@ -117,11 +111,11 @@
 // |       | MW ← |  MW → |       | ⌃+⌘+4 | MUTE | VOL + |  | VOL - | ⇧+⌘+A | TAB ← |       | TAB → |       | MEH+" |
 //                        |       |       | LWR  |       |  |       |  SYM  |       |  SYS  |
       bindings = <
-&trans  &none &none &none  &none      &kp C_PREV                           &kp MH(6)  &kp MH(7)  &kp MH(8) &kp MH(9)   &kp MH(0) &kp MH(MINUS)
-&kp DEL &none &none &none  &none      &kp C_NEXT                           &kp PG_UP  &kp W_PREV &kp UP    &kp W_NEXT  &kp HOME  &kp LG(GRAVE)
-&trans  &none &none &none  &none      &kp C_PP                             &kp PG_DN  &kp LEFT   &kp DOWN  &kp RIGHT   &kp END   &kp MH(SQT)
-&trans  &none &none &none  &kp LSG(4) &kp K_MUTE &kp C_VOL_DN &kp C_VOL_UP &kp LSG(A) &kp MH(M)  &none     &kp MH(DOT) &none     &kp MH(DQT)
-                    &trans &trans     &to LWR    &trans       &trans       &to SYM    &trans     &to SYS
+&trans  &none &none &none  &none      &kp C_PREV                           &kp MEH(6) &kp MEH(7) &kp MEH(8) &kp MEH(9)   &kp MEH(0) &kp MEH(MINUS)
+&kp DEL &none &none &none  &none      &kp C_NEXT                           &kp PG_UP  &kp W_PREV  &kp UP    &kp W_NEXT   &kp HOME   &kp LG(GRAVE)
+&trans  &none &none &none  &none      &kp C_PP                             &kp PG_DN  &kp LEFT    &kp DOWN  &kp RIGHT    &kp END    &kp MEH(SQT)
+&trans  &none &none &none  &kp LSG(4) &kp K_MUTE &kp C_VOL_DN &kp C_VOL_UP &kp LSG(A) &kp MEH(M)  &none     &kp MEH(DOT) &none      &kp MEH(DQT)
+                    &trans &trans     &to 0      &trans       &trans       &to 1      &trans      &to SYS
       >;
     };
 
@@ -133,11 +127,11 @@
 // |       |       |       |       |       |       | RESET |  | RESET |       |       |       |       |       |       |
 //                         |       |       |  LWR  |       |  |       |  NAV  |       |       |
       bindings = <
-&bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4                       &none   &none &none &none &none &none
-&none      &none        &none        &none        &none        &none                              &none   &none &none &none &none &none
-&none      &none        &none        &none        &none        &none                              &none   &none &none &none &none &none
-&none      &none        &none        &none        &none        &none        &sys_reset &sys_reset &none   &none &none &none &none &none
-                                     &none        &none        &to LWR      &none      &none      &to NAV &none &none
+&bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4                       &none &none &none &none &none &none
+&none      &none        &none        &none        &none        &none                              &none &none &none &none &none &none
+&none      &none        &none        &none        &none        &none                              &none &none &none &none &none &none
+&none      &none        &none        &none        &none        &none        &sys_reset &sys_reset &none &none &none &none &none &none
+                                     &none        &none        &to 0        &none      &none      &to 2 &none &none
       >;
     };
   };
