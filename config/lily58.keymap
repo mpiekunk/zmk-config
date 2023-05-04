@@ -1,17 +1,28 @@
+/*
+ * Copyright (c) 2020 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/ext_power.h>
 
+// layer definitions
 #define LWR 0
 #define SYM 1
 #define NAV 2
 #define SYS 3
 
-#define MEH(key) LC(LS(LA(key)))
-#define SPC_MEH &mt LC(LS(LALT)) SPC
-#define HYP LS(LC(LA(LGUI)))
-#define HYPER(key) LS(LC(LA(LG(key))))
+// misc aliases
+#define MH(key) LC(LS(LA(key)))          // MH(key) = Ctrl+Shift+Alt+<key>
+#define MEH LC(LS(LALT))                 // MEH = Ctrl+Shift+Alt
+#define HYP LS(LC(LA(LGUI)))             // HYP = Ctrl+Shift+GUI
+#define HYPER(key) LS(LC(LA(LG(key))))   // HYPER(key) = Ctrl+Shift+Alt+GUI+<key>
+#define LSG(key) LS(LG(key))             // LSG(key) = Shift+GUI+<key>
+#define W_PREV LA(LEFT)                  // Previous Word
+#define W_NEXT LA(RIGHT)                 // Next Word
 
 &mt {
   flavor = "tap-preferred";
@@ -55,45 +66,78 @@
     };
   };
 
+// key positions
+// --------------------------------------------------------------------------------
+// |  0  |  1  |  2  |  3  |  4  |  5  |                 |  6  |  7  |  8  |  9  |  10 |  11 |
+// |  12 |  13 |  14 |  15 |  16 |  17 |                 |  18 |  19 |  20 |  21 |  22 |  23 |
+// |  24 |  25 |  26 |  27 |  28 |  29 |                 |  30 |  31 |  32 |  33 |  34 |  35 |
+// |  36 |  37 |  38 |  39 |  40 |  41 |  42 |     |  43 |  44 |  45 |  46 |  47 |  48 |  49 |
+//                   |  50 |  51 |  52 |  53 |     |  54 |  55 |  56 |  57 |
+//
+
   keymap {
     compatible = "zmk,keymap";
     default_layer {
+// ----------------------------------------------------------------------------------------------------------
+// |  ESC  |  1  |  2  |  3   |  4   |  5   |                  |  6   |  7   |  8   |  9   |   0   |   -   |
+// |  BSPC |  Q  |  W  |  E   |  R   |  T   |                  |  Y   |  U   |  I   |  O   |   P   |   \   |
+// |  TAB  |  A  |  S  |  D   |  F   |  G   |                  |  H   |  J   |  K   |  L   |   ;   |   '   |
+// | SHIFT |  Z  |  X  |  C   |  V   |  B   |   [   |  |   ]   |  N   |  M   |  ,   |  .   |   /   | SHIFT |
+//                     | ALT  | CMD  | LWR  | ENTER |  | SPACE | SYM  | CTRL |  NAV |
       bindings = <
-&gresc      &kp N1 &kp N2       &kp N3      &kp N4      &kp N5                       &kp N6  &kp N7      &kp N8          &kp N9        &kp N0   &kp MINUS
-&bspc_del   &kp Q  &kp W        &kp E       &kp R       &kp T                        &kp Y   &kp U       &kp I           &kp O         &kp P    &kp BSLH
-&kp TAB     &kp A  &hm LCTRL S  &hm LALT D  &hm LGUI F  &kp G                        &kp H   &hm RGUI J  &hm RALT K      &hm RCTRL L   &kp SEMI &kp SQT
-&td1 LSHFT  &kp Z  &kp X        &kp C       &kp V       &kp B    &kp LBKT   &kp RBKT &kp N   &kp M       &td MINUS COMMA &td UNDER DOT &kp FSLH &td1 RSHFT
-                                &sk LALT    &sk LGUI    &to LWR  &kp RET    SPC_MEH  &to SYM &sk LCTRL   &to NAV
+&gresc      &kp N1 &kp N2       &kp N3      &kp N4      &kp N5                          &kp N6  &kp N7      &kp N8          &kp N9        &kp N0   &kp MINUS
+&bspc_del   &kp Q  &kp W        &kp E       &kp R       &kp T                           &kp Y   &kp U       &kp I           &kp O         &kp P    &kp BSLH
+&kp TAB     &kp A  &hm LCTRL S  &hm LALT D  &hm LGUI F  &kp G                           &kp H   &hm RGUI J  &hm RALT K      &hm RCTRL L   &kp SEMI &kp SQT
+&td1 LSHFT  &kp Z  &kp X        &kp C       &kp V       &kp B    &kp LBKT   &kp RBKT    &kp N   &kp M       &td MINUS COMMA &td UNDER DOT &kp FSLH &td1 RSHFT
+                                &sk LALT    &sk LGUI    &to LWR  &kp RET    &mt MEH SPC &to SYM &sk LCTRL   &to NAV
       >;
     };
 
     symbol_layer {
+// ----------------------------------------------------------------------------------------------------
+// |       |  F1 |  F2 |  F3  |  F4 |  F5 |                  |  F6  |  F7 |  F8  |  F9 | F10  |  F11  |
+// |       |  !  |  @  |  #   |  $  |  %  |                  |  ^   |  &  |  *   |  (  |  )   |  F12  |
+// |       |  1  |  2  |  3   |  4  |  5  |                  |  6   |  7  |  8   |  9  |  0   |  "|"  |
+// |       |  ~  |  +  |  =   |  {  |  }  |       |  |       |  [   |  ]  |  -   |  _  |  ?   |       |
+//                     |      |     | LWR |       |  |       |  NAV |     |      |
       bindings = <
 &trans  &kp F1      &kp F2    &kp F3      &kp F4      &kp F5                      &kp F6      &kp F7    &kp F8    &kp F9    &kp F10     &kp F11
 &trans  &kp EXCL    &kp AT    &kp HASH    &kp DOLLAR  &kp PRCNT                   &kp CARET   &kp AMPS  &kp ASTRK &kp LPAR  &kp RPAR    &kp F12
 &trans  &kp N1      &kp N2    &kp N3      &kp N4      &kp N5                      &kp N6      &kp N7    &kp N8    &kp N9    &kp N0      &kp PIPE
 &trans  &kp TILDE   &kp PLUS  &kp EQUAL   &kp LBRC    &kp RBRC  &trans   &trans   &kp LBKT    &kp RBKT  &kp MINUS &kp UNDER &kp QMARK   &trans
-                              &trans      &trans      &to LWR   &trans   &trans    &to NAV    &trans    &none
+                              &trans      &trans      &to LWR   &trans   &trans   &to NAV     &trans    &none
       >;
     };
 
     navigation_layer {
+// ------------------------------------------------------------------------------------------------------------------
+// |       |      |       |       |       |  <<  |                  | MEH+6 | MEH+7 | MEH+8 | MEH+9 | MEH+0 | MEH+- |
+// |       | MW ↑ | L CLK |  M ↑  | R CLK |  >>  |                  | PG ↑  | ⌥+←   |   ↑   |  ⌥+→  | HOME  |  ⌘+`  |
+// |       | MW ↓ |  M ←  |  M ↓  |  M →  | PLAY |                  | PG ↓  |   ←   |   ↓   |   →   | END   | MEH+' |
+// |       | MW ← |  MW → |       | ⌃+⌘+4 | MUTE | VOL + |  | VOL - | ⇧+⌘+A | TAB ← |       | TAB → |       | MEH+" |
+//                        |       |       | LWR  |       |  |       |  SYM  |       |  SYS  |
       bindings = <
-&trans &none &none &none &none &kp C_PREV &kp MEH(6) &kp MEH(7) &kp MEH(8) &kp MEH(9) &kp MEH(0) &kp MEH(-)
-&kp DEL &none &none &none &none &kp C_NEXT &kp PG_UP &kp LA(LEFT) &kp UP &kp LA(RIGHT) &kp HOME &none
-&trans &none &none &none &none &kp C_PP &kp PG_DN &kp LEFT &kp DOWN &kp RIGHT &kp END &none
-&trans &none &none &none &kp LS(LG(4)) &kp K_MUTE &kp C_VOL_DN &kp C_VOL_UP &kp LS(LG(A)) &none &none &none &none &none
-&trans &trans &to LWR &trans &trans &to SYM &trans &to SYS
+&trans  &none &none &none  &none      &kp C_PREV                           &kp MH(6)  &kp MH(7)  &kp MH(8) &kp MH(9)   &kp MH(0) &kp MH(MINUS)
+&kp DEL &none &none &none  &none      &kp C_NEXT                           &kp PG_UP  &kp W_PREV &kp UP    &kp W_NEXT  &kp HOME  &kp LG(GRAVE)
+&trans  &none &none &none  &none      &kp C_PP                             &kp PG_DN  &kp LEFT   &kp DOWN  &kp RIGHT   &kp END   &kp MH(SQT)
+&trans  &none &none &none  &kp LSG(4) &kp K_MUTE &kp C_VOL_DN &kp C_VOL_UP &kp LSG(A) &kp MH(M)  &none     &kp MH(DOT) &none     &kp MH(DQT)
+                    &trans &trans     &to LWR    &trans       &trans       &to SYM    &trans     &to SYS
       >;
     };
 
     system_layer {
+// -------------------------------------------------------------------------------------------------------------------
+// | BTCLR |  BT1  |  BT2  |  BT3  |  BT4  |  BT4  |                  |       |       |       |       |       |       |
+// |       |       |       |       |       |       |                  |       |       |       |       |       |       |
+// |       |       |       |       |       |       |                  |       |       |       |       |       |       |
+// |       |       |       |       |       |       | RESET |  | RESET |       |       |       |       |       |       |
+//                         |       |       |  LWR  |       |  |       |  NAV  |       |       |
       bindings = <
-&bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &none &none &none &none &none &none
-&none &none &none &none &none &none &none &none &none &none &none &none
-&none &none &none &none &none &none &none &none &none &none &none &none
-&none &none &none &none &none &none &sys_reset &sys_reset &none &none &none &none &none &none
-&none &none &to LWR &none &none &to NAV &none &none
+&bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4                       &none   &none &none &none &none &none
+&none      &none        &none        &none        &none        &none                              &none   &none &none &none &none &none
+&none      &none        &none        &none        &none        &none                              &none   &none &none &none &none &none
+&none      &none        &none        &none        &none        &none        &sys_reset &sys_reset &none   &none &none &none &none &none
+                                     &none        &none        &to LWR      &none      &none      &to NAV &none &none
       >;
     };
   };
