@@ -10,10 +10,10 @@
 #include <dt-bindings/zmk/ext_power.h>
 
 // misc aliases
-#define MEH(key) LC(LS(LA(key)))          // MEH(key) = Ctrl+Shift+Alt+<key>
-#define MEHK LC(LS(LALT))                 // MEHK = Ctrl+Shift+Alt
-#define HYP LS(LC(LA(LGUI)))             // HYP = Ctrl+Shift+GUI
-#define HYPER(key) LS(LC(LA(LG(key))))   // HYPER(key) = Ctrl+Shift+Alt+GUI+<key>
+#define MEH(key) LC(LS(LA(key)))         // MEH(key) = Ctrl+Shift+Alt+<key>
+#define MEHK LC(LS(LALT))                // MEHK = Ctrl+Shift+Alt
+#define HYPER LS(LC(LA(LGUI)))           // HYPER = Ctrl+Shift+GUI
+#define HYP(key) LS(LC(LA(LG(key))))     // HYP(key) = Ctrl+Shift+Alt+GUI+<key>
 #define LSG(key) LS(LG(key))             // LSG(key) = Shift+GUI+<key>
 #define W_PREV LA(LEFT)                  // Previous Word
 #define W_NEXT LA(RIGHT)                 // Next Word
@@ -91,8 +91,8 @@
 &gresc      &kp N1 &kp N2       &kp N3      &kp N4      &kp N5                           &kp N6  &kp N7      &kp N8          &kp N9        &kp N0   &kp MINUS
 &bspc_del   &kp Q  &kp W        &kp E       &kp R       &kp T                            &kp Y   &kp U       &kp I           &kp O         &kp P    &kp BSLH
 &kp TAB     &kp A  &kp S        &kp D       &kp F       &kp G                            &kp H   &kp J       &kp K           &kp L         &kp SEMI &kp SQT
-&skq LSHFT  &kp Z  &kp X        &kp C       &kp V       &kp B    &kp LBKT   &kp RBKT     &kp N   &kp M       &td MINUS COMMA &td UNDER DOT &kp FSLH &td_caps
-                                &sk LALT    &sk LGUI    &to 0    &kp RET    &mt MEHK SPC &to 1   &sk LCTRL   &to 2
+&skq LSHFT  &kp Z  &kp X        &kp C       &kp V       &kp B     &kp LBKT   &kp RBKT     &kp N   &kp M       &td MINUS COMMA &td UNDER DOT &kp FSLH &td_caps
+                                &sk LALT    &sk LGUI    &kp HYPER &kp RET    &mt MEHK SPC &to 1   &sk LCTRL   &to 2
       >;
     };
 
@@ -117,13 +117,13 @@
 // |       |      |       |       |       |  <<  |                  | MEH+6 | MEH+7 | MEH+8 | MEH+9 | MEH+0 | MEH+- |
 // |       | MW ↑ | L CLK |  M ↑  | R CLK |  >>  |                  | PG ↑  | ⌥+←   |   ↑   |  ⌥+→  | HOME  |  ⌘+`  |
 // |       | MW ↓ |  M ←  |  M ↓  |  M →  | PLAY |                  | PG ↓  |   ←   |   ↓   |   →   | END   | MEH+' |
-// |       | MW ← |  MW → |       | ⌃+⌘+4 | MUTE | VOL + |  | VOL - | ⇧+⌘+A | TAB ← |       | TAB → |       | MEH+" |
+// |       | MW ← |  MW → |       | ⌃+⌘+4 | MUTE | VOL + |  | VOL - | ⇧+⌘+A | TAB ← |       | TAB → |       | HYP+' |
 //                        |       |       | LWR  |       |  |       |  SYM  |       |  SYS  |
       bindings = <
 &trans  &none &none &none  &none      &kp C_PREV                           &kp MEH(6) &kp MEH(7) &kp MEH(8) &kp MEH(9)   &kp MEH(0) &kp MEH(MINUS)
 &kp DEL &none &none &none  &none      &kp C_NEXT                           &kp PG_UP  &kp W_PREV  &kp UP    &kp W_NEXT   &kp HOME   &kp LG(GRAVE)
 &trans  &none &none &none  &none      &kp C_PP                             &kp PG_DN  &kp LEFT    &kp DOWN  &kp RIGHT    &kp END    &kp MEH(SQT)
-&trans  &none &none &none  &kp LSG(4) &kp K_MUTE &kp C_VOL_DN &kp C_VOL_UP &kp LSG(A) &kp MEH(M)  &none     &kp MEH(DOT) &none      &kp MEH(DQT)
+&trans  &none &none &none  &kp LSG(4) &kp K_MUTE &kp C_VOL_DN &kp C_VOL_UP &kp LSG(A) &kp MEH(M)  &none     &kp MEH(DOT) &none      &kp HYP(SQT)
                     &trans &trans     &to 0      &trans       &trans       &to 1      &trans      &to 3
       >;
     };
