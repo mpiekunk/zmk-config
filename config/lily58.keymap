@@ -16,6 +16,7 @@
 #define HYPER LS(LC(LA(LGUI)))           // HYPER = Ctrl+Shift+GUI
 #define HYP(key) LS(LC(LA(LG(key))))     // HYP(key) = Ctrl+Shift+Alt+GUI+<key>
 #define LSG(key) LS(LG(key))             // LSG(key) = Shift+GUI+<key>
+#define LCG(key) LC(LG(key))             // LCG(key) = Ctrl+GUI+<key>
 #define W_PREV LA(LEFT)                  // Previous Word
 #define W_NEXT LA(RIGHT)                 // Next Word
 
@@ -137,15 +138,15 @@
     navigation_layer {
 // ------------------------------------------------------------------------------------------------------------------
 // |       |      |       |       |       |  <<  |                  | MEH+6 | MEH+7 | MEH+8 | MEH+9 | MEH+0 | MEH+- |
-// |       | MW ↑ | L CLK |  M ↑  | R CLK |  >>  |                  | PG ↑  | ⌥+←   |   ↑   |  ⌥+→  | HOME  |  ⌘+`  |
+// |  DEL  | MW ↑ | L CLK |  M ↑  | R CLK |  >>  |                  | PG ↑  | ⌥+←   |   ↑   |  ⌥+→  | HOME  | MEH+\ |
 // |       | MW ↓ |  M ←  |  M ↓  |  M →  | PLAY |                  | PG ↓  |   ←   |   ↓   |   →   | END   | MEH+' |
-// |       | MW ← |  MW → |       | ⌃+⌘+4 | MUTE | VOL + |  | VOL - | ⇧+⌘+A | TAB ← |       | TAB → |       | HYP+' |
+// |       | MW ← |  MW → |       | ⌃+⌘+4 | MUTE | VOL + |  | VOL - | ⇧+⌘+A | TAB ← |       | TAB → |       |       |
 //                        |       |       | LWR  |       |  |       |  SYM  |       |  SYS  |
       bindings = <
 &trans  &none            &none             &none          &none           &kp C_PREV                           &kp MEH(6) &kp MEH(7) &kp MEH(8) &kp MEH(9)   &kp MEH(0) &kp MEH(MINUS)
-&kp DEL &mwh SCROLL_UP   &mkp LCLK         &mmv MOVE_UP   &mkp RCLK       &kp C_NEXT                           &kp PG_UP  &kp W_PREV  &kp UP    &kp W_NEXT   &kp HOME   &kp LG(GRAVE)
+&kp DEL &mwh SCROLL_UP   &mkp LCLK         &mmv MOVE_UP   &mkp RCLK       &kp C_NEXT                           &kp PG_UP  &kp W_PREV  &kp UP    &kp W_NEXT   &kp HOME   &kp MEH(BSLH)
 &trans  &mwh SCROLL_DOWN &mmv MOVE_LEFT    &mmv MOVE_DOWN &mmv MOVE_RIGHT &kp C_PP                             &kp PG_DN  &kp LEFT    &kp DOWN  &kp RIGHT    &kp END    &kp MEH(SQT)
-&trans  &mwh SCROLL_LEFT &mwh SCROLL_RIGHT &none          &kp LSG(4)      &kp K_MUTE &kp C_VOL_DN &kp C_VOL_UP &kp LSG(A) &kp MEH(M)  &none     &kp MEH(DOT) &none      &kp HYP(SQT)
+&trans  &mwh SCROLL_LEFT &mwh SCROLL_RIGHT &none          &kp LCG(4)      &kp K_MUTE &kp C_VOL_DN &kp C_VOL_UP &kp LSG(A) &kp MEH(M)  &none     &kp MEH(DOT) &none      &none
                                            &trans         &trans          &to 0      &trans       &trans       &to 1      &trans      &to 3
       >;
     };
